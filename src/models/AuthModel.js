@@ -1,9 +1,9 @@
-// Importa a conexao com o banco.
+// Importa a conexao com o banco
 const db = require("../config/database");
 
-// Model responsavel pela tabela de usuarios.
+// Model responsavel pela tabela de usuarios
 class AuthModel {
-  // Garante que a tabela de usuarios exista.
+  // Garante que a tabela de usuarios exista
   async garantirEstrutura() {
     await db.query(`
       CREATE TABLE IF NOT EXISTS usuarios (
@@ -15,7 +15,7 @@ class AuthModel {
     `);
   }
 
-  // Busca um usuario pelo email.
+  // Busca um usuario pelo email
   async buscarPorEmail(email) {
     const [usuarios] = await db.query(
       "SELECT id, nome, email, senha FROM usuarios WHERE email = ?",
@@ -25,7 +25,7 @@ class AuthModel {
     return usuarios[0] || null;
   }
 
-  // Busca um usuario pelo id.
+  // Busca um usuario pelo id
   async buscarPorId(id) {
     const [usuarios] = await db.query(
       "SELECT id, nome, email FROM usuarios WHERE id = ?",
@@ -35,7 +35,7 @@ class AuthModel {
     return usuarios[0] || null;
   }
 
-  // Lista todos os usuarios cadastrados.
+  // Lista todos os usuarios cadastrados
   async listarTodos() {
     const [usuarios] = await db.query(
       "SELECT id, nome, email FROM usuarios ORDER BY id ASC"
@@ -44,7 +44,7 @@ class AuthModel {
     return usuarios;
   }
 
-  // Cria um novo usuario.
+  // Cria um novo usuario
   async criar(usuario) {
     const [resultado] = await db.query(
       "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)",

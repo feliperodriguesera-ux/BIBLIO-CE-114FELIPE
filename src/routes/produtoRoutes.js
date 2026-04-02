@@ -13,37 +13,37 @@ const autenticarToken = require("../middlewares/authMiddleware");
 // Esse router serve para organizar as rotas do modulo de produtos.
 const router = express.Router();
 
-// ===== TOKEN OBRIGATORIO =====
+//  TOKEN OBRIGATORIO 
 // Todas as rotas de produtos abaixo exigem login
 // No Postman envie no header:
 // Authorization: Bearer SEU_TOKEN
 router.use(autenticarToken);
 
-// ===== POSTMAN =====
+//POSTMAN
 // GET http://localhost:3000/api/produtos
 // usar para listar todos os produtos
 // precisa enviar token
 router.get("/", ProdutoController.listar.bind(ProdutoController));
 
-// ===== POSTMAN =====
+//  POSTMAN
 // GET http://localhost:3000/api/produtos/1
 // usar para buscar um produto pelo id
 // precisa enviar token
 router.get("/:id", ProdutoController.buscarPorId.bind(ProdutoController));
 
-// ===== POSTMAN =====
+// POSTMAN 
 // POST http://localhost:3000/api/produtos
 // usar para cadastrar um novo produto
 // precisa enviar token
 router.post("/", ProdutoController.cadastrar.bind(ProdutoController));
 
-// ===== POSTMAN =====
+// POSTMAN 
 // PUT http://localhost:3000/api/produtos/1
 // usar para atualizar um produto existente
 // precisa enviar token
 router.put("/:id", ProdutoController.atualizar.bind(ProdutoController));
 
-// ===== POSTMAN =====
+// POSTMAN 
 // DELETE http://localhost:3000/api/produtos/1
 // usar para deletar um produto pelo id
 // precisa enviar token

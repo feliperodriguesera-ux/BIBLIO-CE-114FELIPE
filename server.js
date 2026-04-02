@@ -2,8 +2,10 @@ const express = require("express");
 const cors = require("cors");
 
 const produtoRoutes = require("./src/routes/produtoRoutes");
+const pedidoRoutes = require("./src/routes/pedidoRoutes");
 const authRoutes = require("./src/routes/authRoutes");
 const ProdutoModel = require("./src/models/ProdutoModel");
+const PedidoModel = require("./src/models/PedidoModel");
 const AuthModel = require("./src/models/AuthModel");
 
 const app = express();
@@ -21,12 +23,14 @@ app.get("/", (_req, res) => {
   res.json({
     mensagem: "API da papelaria funcionando.",
     modulo_produtos: "/api/produtos",
+    modulo_pedidos: "/api/pedidos",
     modulo_auth: "/api/auth",
   });
 });
 
-// A API agora expoe apenas o modulo de produtos.
+// A API expoe os modulos de produtos, pedidos e autenticacao.
 app.use("/api/produtos", produtoRoutes);
+app.use("/api/pedidos", pedidoRoutes);
 app.use("/api/auth", authRoutes);
 
 // Retorno padrao para qualquer rota inexistente.
@@ -44,8 +48,9 @@ app.use((erro, _req, res, _next) => {
 
 async function iniciarServidor() {
   try {
-    // Antes de subir a API, garantimos que a estrutura de produtos exista.
+    // Antes de subir a API, garantimos que as tabelas existam.
     await ProdutoModel.garantirEstrutura();
+    await PedidoModel.garantirEstrutura();
     await AuthModel.garantirEstrutura();
 
     app.listen(PORTA, () => {

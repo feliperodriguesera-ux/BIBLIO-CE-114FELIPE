@@ -30,8 +30,8 @@ class ProdutoModel {
     return produtos;
   }
 
-  // Este metodo busca apenas um produto pelo id.
-  // Ele faz um SELECT filtrando pelo id recebido.
+  // Este metodo busca apenas um produto pelo id
+  // Ele faz um SELECT filtrando pelo id recebido
   async buscarPorId(id) {
     const [produtos] = await db.query(
       "SELECT id, nome, categoria, preco, quantidade FROM estoque WHERE id = ?",
